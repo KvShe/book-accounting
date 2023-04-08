@@ -12,6 +12,7 @@
     <p th:text="${book.getAuthor()}"></p>
     <p th:text="${book.getAge()}"></p>
 
+<!--    <button th:href="@{/books/{id}/edit(id=${book.getBook_id()})}">Редактировать</button>-->
     <a th:href="@{/books/{id}/edit(id=${book.getBook_id()})}">Редактировать</a>
 
     <form th:method="DELETE" th:action="@{/books/{id}(id=${book.getBook_id()})}">

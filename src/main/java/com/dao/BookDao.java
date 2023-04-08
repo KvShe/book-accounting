@@ -10,7 +10,7 @@ import java.util.List;
 
 @Component
 @AllArgsConstructor
-public class BookDao {
+public class BookDao implements Dao<Book> {
     private final JdbcTemplate JDBC_TEMPLATE;
 
     public List<Book> index() {

@@ -9,16 +9,16 @@
     <hr>
 
     <form th:method="PATCH" th:action="@{/books/{id}(id=${book.getBook_id()})}" th:object="${book}">
-    <label for="author">Автор</label>
-    <input type="text" th:field="*{author}" id="author"/>
-    <br>
-    <label for="name">Название</label>
-    <input type="text" th:field="*{name}" id="name"/>
-    <br>
-    <label for="age">Год</label>
-    <input type="text" th:field="*{age}" id="age"/>
-    <br>
-    <input type="submit" value="Обновить">
+        <label for="author">Автор</label>
+        <input type="text" th:field="*{author}" id="author"/>
+        <br>
+        <label for="name">Название</label>
+        <input type="text" th:field="*{name}" id="name"/>
+        <br>
+        <label for="age">Год</label>
+        <input type="text" th:field="*{age}" id="age"/>
+        <br>
+        <input type="submit" value="Обновить">
     </form>
 
 </body>
