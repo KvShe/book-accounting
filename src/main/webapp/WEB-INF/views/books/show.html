@@ -12,11 +12,18 @@
     <p th:text="${book.getAuthor()}"></p>
     <p th:text="${book.getAge()}"></p>
 
-<!--    <button th:href="@{/books/{id}/edit(id=${book.getBook_id()})}">Редактировать</button>-->
+<!--    <div style="color: red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name error</div>-->
+    <p th:if="${person} == null">Эта книга свободна</p>
+
+    <form th:if="${person} != null" th:method="post" th:action="@{/books/{id}(id=${book.getBook_id()})}">
+        <div th:text="'Книгу забрал ' + ${person.getName()}">value</div>
+        <input type="submit" value="Освободить книгу"/>
+    </form>
+
     <a th:href="@{/books/{id}/edit(id=${book.getBook_id()})}">Редактировать</a>
 
     <form th:method="DELETE" th:action="@{/books/{id}(id=${book.getBook_id()})}">
-        <input type="submit" value="Удалить">
+        <input type="submit" value="Удалить книгу">
     </form>
     <button onclick="document.location='/books'">Назад</button>
 </body>

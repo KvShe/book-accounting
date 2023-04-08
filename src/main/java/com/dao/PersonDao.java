@@ -1,5 +1,6 @@
 package com.dao;
 
+import com.models.Book;
 import com.models.Person;
 import lombok.AllArgsConstructor;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;

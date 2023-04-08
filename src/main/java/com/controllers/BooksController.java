@@ -22,6 +22,7 @@ public class BooksController {
 
     @GetMapping("/{id}")
     public String show(@PathVariable("id") int id, Model model) {
+        model.addAttribute("person", BOOK_DAO.getPerson(id));
         model.addAttribute("book", BOOK_DAO.show(id));
 
         return "books/show";
@@ -37,6 +38,13 @@ public class BooksController {
         BOOK_DAO.save(book);
 
         return "redirect:/books";
+    }
+
+    @PostMapping("/{id}")
+    public String empty(@PathVariable("id") int id, Model model) {
+        BOOK_DAO.empty(id);
+
+        return "redirect:/books/{id}";
     }
 
     @GetMapping("/{id}/edit")
