@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @RequestMapping("/people")
 @AllArgsConstructor
-public class PeopleController {
+public class PersonController {
     private final PersonDao PERSON_DAO;
 
     @GetMapping()

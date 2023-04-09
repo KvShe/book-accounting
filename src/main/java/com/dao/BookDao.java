@@ -51,13 +51,17 @@ public class BookDao implements Dao<Book> {
 
     public Person getPerson(int bookId) {
         return JDBC_TEMPLATE.query(
-                        "select * from person join person_book on person.person_id = person_book.person_id where book_id = ?",
+                        "select person.* from person join person_book on person.person_id = person_book.person_id where book_id = ?",
                         new Object[]{bookId},
                         new BeanPropertyRowMapper<>(Person.class))
                 .stream().findAny().orElse(null);
     }
 
-    public void empty(int id) {
+    public void release(int id) {
         JDBC_TEMPLATE.update("delete from person_book where book_id = ?", id);
+    }
+
+    public void assign(int personId, int bookId) {
+        JDBC_TEMPLATE.update("insert into person_book values (?, ?)", personId, bookId);
     }
 }

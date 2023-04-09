@@ -1,7 +1,9 @@
 package com.controllers;
 
 import com.dao.BookDao;
+import com.dao.PersonDao;
 import com.models.Book;
+import com.models.Person;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 @AllArgsConstructor
 public class BooksController {
     private final BookDao BOOK_DAO;
+    private final PersonDao PERSON_DAO;
 
     @GetMapping()
     public String index(Model model) {
@@ -21,9 +24,18 @@ public class BooksController {
     }
 
     @GetMapping("/{id}")
-    public String show(@PathVariable("id") int id, Model model) {
-        model.addAttribute("person", BOOK_DAO.getPerson(id));
+    public String show(@PathVariable("id") int id,
+                       @ModelAttribute("person") Person person,
+                       Model model) {
         model.addAttribute("book", BOOK_DAO.show(id));
+
+        Person owner = BOOK_DAO.getPerson(id);
+
+        if (owner == null) {
+            model.addAttribute("people", PERSON_DAO.index());
+        } else {
+            model.addAttribute("owner", owner);
+        }
 
         return "books/show";
     }
@@ -38,13 +50,6 @@ public class BooksController {
         BOOK_DAO.save(book);
 
         return "redirect:/books";
-    }
-
-    @PostMapping("/{id}")
-    public String empty(@PathVariable("id") int id, Model model) {
-        BOOK_DAO.empty(id);
-
-        return "redirect:/books/{id}";
     }
 
     @GetMapping("/{id}/edit")
@@ -67,5 +72,20 @@ public class BooksController {
         BOOK_DAO.delete(id);
 
         return "redirect:/books";
+    }
+
+    @PostMapping("/{id}")
+    public String release(@PathVariable("id") int id, Model model) {
+        BOOK_DAO.release(id);
+
+        return "redirect:/books/{id}";
+    }
+
+    @PatchMapping("/{id}/assign")
+    public String assign(@PathVariable("id") int id,
+                         @ModelAttribute("person") Person person) {
+        BOOK_DAO.assign(person.getPerson_id(), id);
+
+        return "redirect:/books/{id}";
     }
 }

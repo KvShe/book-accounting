@@ -5,12 +5,12 @@
     <title>Новый читатель</title>
 </head>
 <body>
-    <h2><center>Карточка нового читателя</center></h2>
+    <h2><div style="text-align: center;">Карточка нового читателя</div></h2>
     <hr>
     <form th:method="POST" th:action="@{/people}" th:object="${person}">
-        <input type="text" th:field="*{name}" id="name" placeholder="Имя и Фалилию"/>
+        <label for="name"></label><input type="text" th:field="*{name}" id="name" placeholder="Имя и Фалилия"/>
         <br>
-        <input type="text" th:field="*{birthYear}" id="birthYear" placeholder="Год рождения"/>
+        <label for="birthYear"></label><input type="text" th:field="*{birthYear}" id="birthYear" placeholder="Год рождения"/>
         <br>
         <input type="submit" value="Зарегистрировать"/>
     </form>
