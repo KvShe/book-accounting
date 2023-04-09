@@ -5,15 +5,25 @@
     <title th:text="${person.getName()}">Reader card</title>
 </head>
 <body>
-    <h3><center>Карточка читателя</center></h3>
+    <h3>
+        <div style="text-align: center;">Карточка читателя</div>
+    </h3>
     <hr>
 
     <p th:text="${person.getName()}">value</p>
     <p th:text="${person.getBirthYear()}">value</p>
 
+    <p th:if="${books.size()} == 0">Не взял ни одной книги</p>
 
-    <a th:href="@{/people/{id}/edit(id=${person.getPerson_id()})}">Редактировать</a>
-    <br>
+    <form th:if="${books.size()} > 0">
+        <div><b>Книги</b></div>
+        <div th:each="book : ${books}">
+            <a th:href="@{/books/{id}(id=${book.getBook_id()})}" th:text="${book.getName()}">value</a>
+        </div>
+    </form>
+    <hr>
+    <a th:href="@{/people/{id}/edit(id=${person.getPerson_id()})}">Редактировать</a><br>
+
     <form th:method="DELETE" th:action="@{/people/{id}(id=${person.getPerson_id()})}">
         <input type="submit" value="Удалить"/>
     </form>

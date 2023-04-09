@@ -8,11 +8,9 @@
     <h2><center>Карточка нового читателя</center></h2>
     <hr>
     <form th:method="POST" th:action="@{/people}" th:object="${person}">
-        <label for="name">Фамилия Имя</label>
-        <input type="text" th:field="*{name}" id="name"/>
+        <input type="text" th:field="*{name}" id="name" placeholder="Имя и Фалилию"/>
         <br>
-        <label for="birthYear">Год Рождения</label>
-        <input type="text" th:field="*{birthYear}" id="birthYear"/>
+        <input type="text" th:field="*{birthYear}" id="birthYear" placeholder="Год рождения"/>
         <br>
         <input type="submit" value="Зарегистрировать"/>
     </form>

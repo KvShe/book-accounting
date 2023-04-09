@@ -43,4 +43,12 @@ public class PersonDao implements Dao<Person> {
     public void delete(int id) {
         JDBC_TEMPLATE.update("delete from person where person_id = ?", id);
     }
+
+    public List<Book> getBooks(int id) {
+        return JDBC_TEMPLATE.query(
+                        "select * from book join person_book on book.book_id = person_book.book_id where person_id = ?",
+                        new Object[]{id},
+                        new BeanPropertyRowMapper<>(Book.class));
+
+    }
 }
