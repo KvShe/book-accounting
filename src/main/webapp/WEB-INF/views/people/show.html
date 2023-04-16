@@ -13,14 +13,13 @@
 <p th:text="${person.getName()}">value</p>
 <p th:text="${person.getBirthYear()}">value</p>
 
-<!--    <p th:if="${books.size()} == 0">Не взял ни одной книги</p>-->
-
-<!--    <form th:if="${books.size()} > 0">-->
-<!--        <div><b>Книги</b></div>-->
-<!--        <div th:each="book : ${books}">-->
-<!--            <a th:href="@{/books/{id}(id=${book.getId()})}" th:text="${book.getName()}">value</a>-->
-<!--        </div>-->
-<!--    </form>-->
+<p th:if="${person.getBooks().size()} == 0">На руках нет книг</p>
+<form th:if="${person.getBooks().size()} > 0">
+    <div><b>Книги</b></div>
+    <div th:each="book : ${person.getBooks()}">
+        <a th:href="@{/books/{id}(id=${book.getId()})}" th:text="${book.getName()}">value</a>
+    </div>
+</form>
 <hr>
 <a th:href="@{/people/{id}/edit(id=${person.getId()})}">Редактировать</a><br>
 
