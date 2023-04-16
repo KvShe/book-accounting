@@ -5,13 +5,20 @@
     <title>Книги</title>
 </head>
 <body>
-    <h3><center>Список книг</center></h3>
-    <hr>
-    <div th:each="book : ${books}">
-        <big><a th:href="@{/books/{id}(id = ${book.getBook_id()})}" th:text="${book.getName()} + ', ' + ${book.getAuthor()}">value</a></big>
-    </div>
-    <hr>
-    <button onclick="document.location='books/new'">Добавить новую книгу</button>
-    <center><a href="index.jsp">На главную</a> </center>
+<h3 style="text-align: center;">Список книг</h3>
+<hr>
+<div th:each="book : ${books}">
+    <big><a th:href="@{/books/{id}(id = ${book.getId()})}" th:text="${book.getName()} + ', ' + ${book.getAuthor()}">value</a></big>
+</div>
+<hr>
+<button onclick="document.location='books/new'">Добавить новую книгу</button>
+
+<form th:action="@{/books/search}">
+    <button>Поиск</button>
+</form>
+
+<div style="text-align: center;">
+    <a href="index.jsp">На главную</a>
+</div>
 </body>
 </html>

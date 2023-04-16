@@ -5,10 +5,10 @@
     <title>Список людей</title>
 </head>
 <body>
-    <h3><center>Список читателей</center></h3>
+    <h3 style="text-align: center;">Список читателей</h3>
     <hr>
     <div th:each="person : ${people}">
-        <big><a th:href="@{/people/{id}(id=${person.getPerson_id()})}" th:text="${person.getName()}">user</a></big>
+        <big><a th:href="@{/people/{id}(id=${person.getId()})}" th:text="${person.getName()}">user</a></big>
 
     </div>
     <hr>
