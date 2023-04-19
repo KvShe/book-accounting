@@ -1,5 +1,6 @@
 package com.services;
 
+import com.models.Book;
 import com.models.Person;
 import com.repositories.PeopleRepository;
 import lombok.AllArgsConstructor;
@@ -7,6 +8,7 @@ import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,6 +17,10 @@ import java.util.Optional;
 @AllArgsConstructor
 public class PeopleService {
     private final PeopleRepository peopleRepository;
+
+//    public List<Person> findAll(Sort var) {
+//        return peopleRepository.findAll(var);
+//    }
 
     public List<Person> findAll() {
         return peopleRepository.findAll();
@@ -46,9 +52,29 @@ public class PeopleService {
 
         if (person.isPresent()) {
             Hibernate.initialize(person.get().getBooks());
+//            checkExpiredBooks(person.get().getBooks());
+
+            person.get().getBooks().forEach(book -> {
+                long diffInMillis = Math.abs(book.getTakenAt().getTime() - new Date().getTime());
+
+                if (diffInMillis > 864_000_000) {
+                    book.setExpired(true);
+                }
+            });
+
             return person.get();
         }
 
         return null;
+    }
+
+    private void checkExpiredBooks(List<Book> books) {
+        for (Book book : books) {
+            long diffInMillis = Math.abs(book.getTakenAt().getTime() - new Date().getTime());
+
+            if (diffInMillis > 864_000_000) {
+                book.setExpired(true);
+            }
+        }
     }
 }
